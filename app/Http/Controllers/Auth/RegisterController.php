@@ -65,6 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        /*
         //+ リクエストから 画像のオリジナルネームを取得
         $fileName = $data['image']->getClientOriginalName();
         //+ 画像をstoreAs()でサーバーに保存
@@ -74,6 +75,12 @@ class RegisterController extends Controller
 
         //+ 保存した画像の取得パスを作成する。(publicパスからの相対パス)
         $fullFilePath = 'storage/images/'.$fileName;
+        */
+
+        $width = 200;
+        $data['image']->resize($width, null, function($constraint){
+            $constraint->aspectRatio();
+        });
 
         return User::create([
             'name' => $data['name'],
